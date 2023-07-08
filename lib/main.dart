@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iti_quiz_app/screens/homepage.dart';
+import 'package:iti_quiz_app/screens/start.dart';
 
 void main() {
     runApp(const QuizApp());
@@ -17,7 +17,7 @@ class QuizApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: LoginPage(),
+      home: Start(),
     );
   }
 }

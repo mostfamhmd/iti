@@ -24,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
                   height: MediaQuery.of(context).size.height*2/3,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(50.0)),
                     color: Colors.white,
                   ),
                   child: Column(
