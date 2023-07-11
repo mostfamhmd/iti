@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'catigories.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -113,7 +115,13 @@ class _LoginPageState extends State<LoginPage> {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.deepPurple,
                             ),
-                            onPressed: (){},
+                            onPressed: (){
+                              Navigator.pop(context,);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => Catigories()),
+                              );
+                            },
                             child: const Text(
                               'Login',
                               style: TextStyle(

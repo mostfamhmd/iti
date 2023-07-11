@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'homepage.dart';
+import 'LoginPage.dart';
 
 class Start extends StatelessWidget {
   const Start({super.key});
@@ -24,6 +24,7 @@ class Start extends StatelessWidget {
                 backgroundColor: Colors.white,
               ),
               onPressed: (){
+                Navigator.pop(context,);
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => LoginPage()),
