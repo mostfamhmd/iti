@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../screens/score.dart';
 
@@ -11,6 +12,10 @@ class General extends StatelessWidget {
       appBar: AppBar(
         title: Text("Genaral Tests \n   0%   Osta", style: TextStyle(color: Colors.white),),
         centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {SystemNavigator.pop(); },
+        ),
         iconTheme: IconThemeData(
           color: Colors.white,
         ),
