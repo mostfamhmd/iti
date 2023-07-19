@@ -24,7 +24,6 @@ class Start extends StatelessWidget {
                 backgroundColor: Colors.white,
               ),
               onPressed: (){
-                Navigator.pop(context,);
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => LoginPage()),

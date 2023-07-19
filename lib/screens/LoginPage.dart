@@ -1,6 +1,9 @@
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'catigories.dart';
+
+TextEditingController userNameTextEditingControllrt =
+    TextEditingController();
 
 class LoginPage extends StatefulWidget {
    LoginPage({super.key,});
@@ -10,36 +13,11 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+final _loginkey = GlobalKey<FormState>();
 
-  final TextEditingController _controller = TextEditingController();
-  bool _isButtonEnabled = false;
 
-  void _checkInput() {
-    String text = _controller.text.trim();
-
-    if (text.isNotEmpty && text.length >= 9 && text[0] == text[0].toUpperCase()) {
-      setState(() {
-        _isButtonEnabled = true;
-      });
-    } else {
-      setState(() {
-        _isButtonEnabled = false;
-      });
-    }
-  }
-
-  void _navigateToNextScreen(BuildContext context) {
-    if (_isButtonEnabled) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Catigories()),
-      );
-    } else {
-      // Handle the case when the TextFormField doesn't meet the required conditions
-      // Show an error message or perform other actions
-    }
-  }
-  bool change = false;
+bool change = true;
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
               Container(
                 height: MediaQuery.of(context).size.height * 2 / 3,
                 width: double.infinity,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   borderRadius: BorderRadius.vertical(
                       top: Radius.circular(50.0)),
                   color: Colors.white,
@@ -84,25 +62,34 @@ class _LoginPageState extends State<LoginPage> {
 
                         ]
                     ),
-                    child: TextFormField(
-                      controller: _controller,
-                      onChanged: (_) {
-                        _checkInput();
-                      },
-                      decoration: InputDecoration(
-                        enabledBorder: OutlineInputBorder(
+                    child: Form(
+                      key: _loginkey,
+                      child: TextFormField(
+                        controller: userNameTextEditingControllrt,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return "enter your name";
+                          } else if (value.length < 9){
+                            return "your name must be more than 9 letters";
+                          } else if(!value[0].contains(RegExp(r'[A-Z]'))){
+                            return "first letter must be capital";
+                          }
+                        },
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                              borderSide: const BorderSide(
+                                  color: Colors.white
+                              )
+                          ),
+                          focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20),
-                            borderSide: BorderSide(
-                                color: Colors.white
-                            )
+                          ),
+                          filled: true,
+                          fillColor: Colors.white,
+                          prefixIcon: const Icon(Icons.person,color: Colors.grey),
+                          label: const Text("username",style: TextStyle(color: Colors.grey,fontSize: 20,fontWeight: FontWeight.bold),),
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                        prefixIcon: Icon(Icons.person,color: Colors.grey),
-                        label: Text("username",style: TextStyle(color: Colors.grey,fontSize: 20,fontWeight: FontWeight.bold),),
                       ),
                     ),
                   ),
@@ -127,7 +114,11 @@ class _LoginPageState extends State<LoginPage> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.deepPurple,
                         ),
-                        onPressed: () => _navigateToNextScreen(context),
+                        onPressed: (){
+                          if (_loginkey.currentState!.validate()){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const Catigories()));
+                          }
+                        },
                         child: const Text(
                           'Login',
                           style: TextStyle(
@@ -136,20 +127,24 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 20,),
-                    const Icon(
-                      Icons.fingerprint,
-                      color: Colors.deepPurple,
-                      size: 60,
-                    ),
-                    const SizedBox(height: 20,),
+                    const SizedBox(height: 40,),
+                    GestureDetector(
+                      onTap: () {
+                             Navigator.push(context, MaterialPageRoute(builder: (context) => const Catigories()));
+                          },
+                      child: const Icon(
+                        Icons.fingerprint,
+                        color: Colors.deepPurple,
+                        size: 60,
+                      ),),
+                    const SizedBox(height: 30,),
                     const Text(
                       'Use Touch id',
                       style: TextStyle(
                           color: Colors.grey
                       ),
                     ),
-                    const SizedBox(height: 10,),
+                    const SizedBox(height: 30,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
